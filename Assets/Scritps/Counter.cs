@@ -5,8 +5,9 @@ public class Counter : MonoBehaviour
 {
     private int _count = 0;
     private bool _active = false;
-
     private float _interval = 0.5f;
+
+    private Coroutine _increaseCoroutine;
 
     private void Update()
     {
@@ -16,11 +17,11 @@ public class Counter : MonoBehaviour
 
             if (_active)
             {
-                StartCoroutine(Increase());
+                _increaseCoroutine = StartCoroutine(Increase());
             }
             else
             {
-                StopCoroutine(Increase());
+                StopCoroutine(_increaseCoroutine);
             }
         }
     }
