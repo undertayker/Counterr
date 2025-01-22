@@ -1,17 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
     private int _count = 0;
-    private int _number = 0;
+    private int _buttonId = 0;
     private bool _active = false;
     private float _interval = 0.5f;
 
     private WaitForSeconds _waitForSeconds;
 
     private Coroutine _increaseCoroutine;
-    public CounterView View;
+
+    public static event Action<int> OnCountChanged;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class Counter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(_number))
+        if (Input.GetMouseButtonDown(_buttonId))
         {
             _active = !_active;
 
@@ -53,7 +55,8 @@ public class Counter : MonoBehaviour
         while (_active)
         {
             _count++;
-            View.DisplayCount(_count);
+            OnCountChanged?.Invoke(_count);
+
             yield return _waitForSeconds;
         }
     }
