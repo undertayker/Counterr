@@ -13,7 +13,7 @@ public class Counter : MonoBehaviour
 
     private Coroutine _increaseCoroutine;
 
-    public static event Action<int> OnCountChanged;
+    public event Action<int> CountChanged;
 
     private void Start()
     {
@@ -55,7 +55,7 @@ public class Counter : MonoBehaviour
         while (_active)
         {
             _count++;
-            OnCountChanged?.Invoke(_count);
+            CountChanged?.Invoke(_count);
 
             yield return _waitForSeconds;
         }

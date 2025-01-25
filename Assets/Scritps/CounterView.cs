@@ -1,16 +1,17 @@
 using UnityEngine;
-using System;
 
 public class CounterView : MonoBehaviour
 {
+    [SerializeField] private Counter _counter;
+
     public void OnEnable()
     {
-        Counter.OnCountChanged += DisplayCount;
+        _counter.CountChanged += DisplayCount;
     }
 
     public void OnDisable()
     {
-        Counter.OnCountChanged -= DisplayCount;
+        _counter.CountChanged -= DisplayCount;
     }
     public void DisplayCount(int count)
     {
